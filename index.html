@@ -151,7 +151,7 @@
     { id: "7", label: "Encountering and being overtaken" },
     { id: "8", label: "Changing lanes" },
     { id: "9", label: "Managing difficult route parts" },
-    { id: "10", label: "Maneuvering (turning, reversing, parking)" }
+    { id: "10", label: "Maneuvering (making U-turns, reversing, parking)" }
   ];
 
   // Used by the radio UI renderer: [value, displayLabel]
@@ -775,7 +775,7 @@ const rec = {
           task_id: String(currentTaskId),
           driving_task: TASK_CHOICES[(currentTaskId - 1)] || "",
           criterion_id: String(currentCriterion),
-          criterion: CRITERIA[(parseInt(String(currentCriterion), 10) - 1)] || "",
+          criterion: (CRITERIA[(parseInt(String(currentCriterion), 10) - 1)]?.label) || "",
           zone: zc,              // for log display
           zone_color: zc,        // backwards compatibility
           sector: sector8(x, y),
@@ -850,12 +850,17 @@ const rec = {
       </tr>`;
     }).join("");
 
+    const criterionText = (c) => {
+      if (typeof c === "string") return c;
+      if (c && typeof c === "object") return c.label || c.name || c.id || "";
+      return "";
+    };
     const exceptions = encounters
       .filter(r => ["orange","red"].includes((r.zone_color||"").toLowerCase()))
       .map(r => `<tr>
         <td>${escapeHtml(r.datetime_utc||"")}</td>
         <td>${escapeHtml(r.driving_task||"")}</td>
-        <td>${escapeHtml(r.criterion||"")}</td>
+        <td>${escapeHtml(criterionText(r.criterion)||"")}</td>
         <td>${escapeHtml(ZONE_LABELS[(r.zone_color||"").toLowerCase()] || "")}</td>
       </tr>`).join("");
 
@@ -915,9 +920,9 @@ ${tableRows || `<tr><td colspan="5">No encounters recorded.</td></tr>`}
 
 <h2 style="margin-top:18px;">Incidents at encounters (orange + red)</h2>
 <table class="report">
-<thead><tr><th>datetime_utc</th><th>driving_task</th><th>zone</th></tr></thead>
+<thead><tr><th>datetime_utc</th><th>driving_task</th><th>criterion</th><th>zone</th></tr></thead>
 <tbody>
-${exceptions || `<tr><td colspan="3">No orange/red encounters.</td></tr>`}
+${exceptions || `<tr><td colspan="4">No orange/red encounters.</td></tr>`}
 </tbody></table>
 
 </body></html>`;
