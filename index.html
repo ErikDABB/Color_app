@@ -3,69 +3,192 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Choose language / Kies taal</title>
+  <title>Encounter Coding App / Ontmoetingen-app</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f7f7f7;
-      display: flex;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #f4f6f8 0%, #eaf0f5 100%);
       min-height: 100vh;
+      display: flex;
       align-items: center;
       justify-content: center;
+      padding: 24px;
+      color: #1f2933;
     }
+
     .card {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 16px;
-      padding: 28px;
-      max-width: 460px;
-      width: calc(100% - 32px);
-      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      background: #ffffff;
+      border: 1px solid #d8e1e8;
+      border-radius: 20px;
+      padding: 30px 28px 24px 28px;
+      width: 100%;
+      max-width: 560px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       text-align: center;
     }
-    h1 {
-      margin-top: 0;
-      margin-bottom: 8px;
-      font-size: 1.5rem;
+
+    .hero-wrap {
+      margin-bottom: 18px;
     }
-    p {
-      color: #555;
-      margin-bottom: 22px;
-      line-height: 1.4;
+
+    .hero-img {
+      display: block;
+      width: 100%;
+      max-width: 330px;
+      margin: 0 auto;
+      border-radius: 14px;
+      border: 1px solid #dfe7ee;
+      background: #fff;
     }
+
+    .title {
+      margin: 0 0 10px 0;
+      font-size: 1.7rem;
+      line-height: 1.2;
+      color: #1d2a35;
+    }
+
+    .subtitle {
+      margin: 0 0 24px 0;
+      color: #52606d;
+      line-height: 1.5;
+      font-size: 1rem;
+    }
+
     .buttons {
       display: grid;
-      gap: 12px;
+      gap: 14px;
+      margin-top: 10px;
     }
-    a.button {
+
+    .button {
       display: block;
-      padding: 12px 16px;
-      border-radius: 10px;
       text-decoration: none;
-      font-weight: 600;
-      border: 1px solid #d0d0d0;
-      background: #fff;
-      color: #222;
+      padding: 15px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: 1px solid #cfd8e3;
+      background: #ffffff;
+      color: #1f2933;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
-    a.button:hover {
-      background: #f0f4ff;
-      border-color: #2f6fed;
+
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    }
+
+    .button.en:hover {
+      background: #eef6ff;
+      border-color: #4a90e2;
+    }
+
+    .button.nl:hover {
+      background: #eefaf0;
+      border-color: #4da35a;
+    }
+
+    .button small {
+      display: block;
+      font-weight: 400;
+      font-size: 0.88rem;
+      color: #607080;
+      margin-top: 4px;
+    }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px 0 8px 0;
+      font-size: 0.88rem;
+      color: #607080;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot.green { background: #51b36a; }
+    .dot.orange { background: #f2a23a; }
+    .dot.red { background: #d9534f; }
+
+    .footer-note {
+      margin-top: 18px;
+      font-size: 0.9rem;
+      color: #7b8794;
+    }
+
+    @media (max-width: 520px) {
+      .card {
+        padding: 24px 18px 20px 18px;
+      }
+
+      .title {
+        font-size: 1.45rem;
+      }
+
+      .subtitle {
+        font-size: 0.96rem;
+      }
+
+      .button {
+        padding: 14px 14px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Choose language / Kies taal</h1>
-    <p>
-      Open the encounter coding app in English or Dutch.<br>
-      Open de ontmoetingen-app in het Engels of Nederlands.
-    </p>
-    <div class="buttons">
-      <a class="button" href="appEngl.html">English version</a>
-      <a class="button" href="appNL.html">Nederlandse versie</a>
+  <main class="card">
+    <div class="hero-wrap">
+      <img src="zones.png" alt="Car encounter zones" class="hero-img">
     </div>
-  </div>
+
+    <h1 class="title">Encounter Coding App / Ontmoetingen-app</h1>
+
+    <p class="subtitle">
+      Code encounters in traffic in English or Dutch.<br>
+      Codeer ontmoetingen in het verkeer in het Engels of Nederlands.
+    </p>
+
+    <div class="buttons">
+      <a class="button en" href="appEngl.html">
+        English version
+        <small>Open the app in English</small>
+      </a>
+
+      <a class="button nl" href="appNL.html">
+        Nederlandse versie
+        <small>Open de app in het Nederlands</small>
+      </a>
+    </div>
+
+    <div class="legend" aria-label="Zone legend">
+      <span class="legend-item"><span class="dot green"></span> Safe zone</span>
+      <span class="legend-item"><span class="dot orange"></span> Attention zone</span>
+      <span class="legend-item"><span class="dot red"></span> Risk zone</span>
+    </div>
+
+    <div class="footer-note">
+      Select a language to continue / Kies een taal om verder te gaan
+    </div>
+  </main>
 </body>
 </html>
