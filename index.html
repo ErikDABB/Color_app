@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Encounter coding (green / orange / red)</title>
+  <title>Ontmoetingen coderen (groen / oranje / rood)</title>
 </head>
 <body>
 <div id="encounterApp"></div>
@@ -142,16 +142,16 @@
   "EOhRAQXJHp14aRMg0KsC8iZAgAABAgQIECBAgAABAvMroCDZCn9jECBAgAABAgQIECBAgAABAt0vIEMCBGYkoCA5IyY7ESBAgAABAgQIECDQrgLiIkCAAAECBDpLQEGys+ZLtAQIECBAoF0ExEGAAAECBAgQIECAAIE9ElCQ3CM2BxGYLwHjEiBAgAABAgQIECBAgAABAt0v0N0ZKkh29/zKjgABAgQIECBAgAABAgRmKmA/AgQIEGiJgIJkS5gNQoAAAQIECBAgsCsBjxMgQIAAAQIECPSWgIJkb823bAkQIPCUgFsCBAgQIECAAAECBAgQIDAvAgqSLWU3GAECBAgQIECAAAECBAgQIND9AjIkQGB3AgqSu9PxHAECBAgQIECAAAECnSMgUgIECBAgQKAjBBQkO2KaBEmAAAECBNpXQGQECBAgQIAAAQIECBCYjYCC5Gy07EugfQREQoAAAQIECBAgQIAAAQIECHS/QFdmqCDZldMqKQIECBAgQIAAAQIECBDYcwFHEiBAgEAzBRQkm6mrbwIECBAgQIAAgZkL2JMAAQIECBAgQKAnBBQke2KaJUmAAIFdC3iGAAECBAgQIECAAAECBAi0UkBBspXaz4zlHgECBAgQIECAAAECBAgQIND9AjIkQGAnAgqSO0HxEAECBAgQIECAAAECnSwgdgIECBAgQKCdBRQk23l2xEaAAAECBDpJQKwECBAgQIAAAQIECBCYgYCC5AyQ7EKgnQXERoAAAQIECBAgQIAAAQIECHS/QDdlqCDZTbMpFwIECBAgQIAAAQIECBBopIC+CBAgQKAJAgqSTUDVJQECBAgQIECAwFwEHEuAAAECBAgQINDNAgqS3Ty7ciNAgMBsBOxLgAABAgQIECBAgAABAgRaIKAg2QLk3Q3hOQIECBAgQIAAAQIECBAgQKD7BWRIgMAzAgqSz1i4R4AAAQIECBAgQIBAdwnIhgABAgQIEGhDAQXJNpwUIREgQIAAgc4WED0BAgQIECBAgAABAgR2LaAguWsbzxDoLAHREiBAgAABAgQIECBAgAABAt0v0AUZKkh2wSRKgQABAgQIECBAgAABAgSaK6B3AgQIEGicgIJk4yz1RIAAAQIECBAg0FgBvREgQIAAAQIECHShgIJkF06qlAgQIDA3AUcTIECAAAECBAgQIECAAIHmCfz/AAAA//9OrnzvAAAABklEQVQDADbvce0pA438AAAAAElFTkSuQmCC";
 
   const TASKS = [
-    { id: "1", label: "Driving off" },
-    { id: "2", label: "Cruising on roads" },
-    { id: "3", label: "Driving near intersections" },
-    { id: "4", label: "Making left and right turns" },
-    { id: "5", label: "Merging and exiting" },
-    { id: "6", label: "Overtaking and passing" },
-    { id: "7", label: "Encountering and being overtaken" },
-    { id: "8", label: "Changing lanes" },
-    { id: "9", label: "Managing difficult route parts" },
-    { id: "10", label: "Maneuvering (making U-turns, reversing, parking)" }
+    { id: "1", label: "Wegrijden" },
+    { id: "2", label: "Rijden op rechte en bochtige weggedeelten" },
+    { id: "3", label: "Rijden nabij en op kruispunten" },
+    { id: "4", label: "Links en rechts afslaan" },
+    { id: "5", label: "In- en uitvoegen" },
+    { id: "6", label: "Inhalen en voorbijgaan" },
+    { id: "7", label: "Tegemoetkomen en ingehaald worden" },
+    { id: "8", label: "Rijstrookwissel en zijdelingse verplaatsingen" },
+    { id: "9", label: "Rijden nabij en op bijzondere weggedeelten (haltes, bruggen, viaducten)" },
+    { id: "10", label: "Bijzondere manoeuvres (omkeren, achteruit rijden, parkeren)" }
   ];
 
   // Used by the radio UI renderer: [value, displayLabel]
@@ -164,10 +164,10 @@
   const tasks = TASK_CHOICES;
 
   const CRITERIA = [
-    { id: "1", label: "Vehicle handling (smooth operating, automation)" },
-    { id: "2", label: "Safety (scan, space, speed)" },
-    { id: "3", label: "Flow (smooth-decisive, utilize road)" },
-    { id: "4", label: "Social driving (communicating, allotting space)" }
+    { id: "1", label: "Voertuigbediening: Soepele bediening, Geautomatiseerd" },
+    { id: "2", label: "Veiligheid: Scannen en risicobewustzijn; Aangepaste snelheid, Veilige ruimte" },
+    { id: "3", label: "Doorstroming: Vlot en besluitvaardig; Wegbenutting" },
+    { id: "4", label: "Sociaal rijgedrag: Communiceren; Ruimte gunnen" }
   ];
 
   // Used by the criterion radio UI renderer: {id,label}
@@ -182,9 +182,9 @@
   const TOL = 0.35;
 
   const ZONE_LABELS = {
-    green:  "Encounters that felt completely comfortable (green)",
-    orange: "Encounters that felt a bit uncomfortable (orange)",
-    red:    "Encounters that felt very uncomfortable (red)"
+    green:  "Comfortabel (groen)",
+    orange: "Een beetje oncomfortabel (oranje)",
+    red:    "Erg oncomfortabel (rood)"
   };
 
   // === 2) UI ===
@@ -221,7 +221,7 @@
       button.success{ background:#2e8b57; color:#fff; border:0; border-radius:8px; }
       button.warn{ background:#f0ad4e; border:0; border-radius:8px; }
 
-/* ---- Encounter log table ---- */
+/* ---- Ontmoeting log table ---- */
 .tableWrap { overflow-x: auto; }
 .logTable { width: 100%; border-collapse: collapse; font-size: 13px; }
 .logTable th, .logTable td { border-top: 1px solid #eee; padding: 6px 8px; vertical-align: middle; }
@@ -238,31 +238,31 @@
 </style>
 
     <div id="enc-wrap">
-      <h2>Encounter coding (green / orange / red)</h2>
+      <h2>Ontmoetingen coderen (groen / oranje / rood)</h2>
 
       <div id="phase1" class="grid grid-2">
         <div class="panel">
-          <div class="panel-title">Administrative setup</div>
-          <p style="margin:0 0 10px 0;">Fill in the administrative details first. Then tap <b>Start coding session</b>.</p>
+          <div class="panel-title">Administratieve gegevens</div>
+          <p style="margin:0 0 10px 0;">Vul eerst de administratieve gegevens in. Klik daarna op <b>Start coderen</b>.</p>
 
-          <label>Assessor - first name<br/><input id="assessor_first_name" type="text"></label><br/>
-          <label>Assessor - family name<br/><input id="assessor_family_name" type="text"></label>
+          <label>Beoordelaar - voornaam<br/><input id="assessor_first_name" type="text"></label><br/>
+          <label>Beoordelaar - achternaam<br/><input id="assessor_family_name" type="text"></label>
           <hr/>
-          <label>Driver - first name<br/><input id="driver_first_name" type="text"></label><br/>
-          <label>Driver - family name<br/><input id="driver_family_name" type="text"></label>
+          <label>Bestuurder - voornaam<br/><input id="driver_first_name" type="text"></label><br/>
+          <label>Bestuurder - achternaam<br/><input id="driver_family_name" type="text"></label>
           <hr/>
-          <label>Session ID<br/><input id="session_id" type="text"></label><br/>
+          <label>Sessie-ID<br/><input id="session_id" type="text"></label><br/>
 
-          <button id="lock_session" class="primary">Start coding session</button>
-          <div style="margin-top:10px;"><small>Saved on this device (browser storage).</small></div>
+          <button id="lock_session" class="primary">Start coderen</button>
+          <div style="margin-top:10px;"><small>Opgeslagen op dit apparaat (browseropslag).</small></div>
           <div id="lastInfo1"></div>
         </div>
 
         <div class="panel">
-          <div class="panel-title">Quick check</div>
+          <div class="panel-title">Korte controle</div>
           <ul style="margin:0;">
-            <li>After starting, admin fields are hidden to reduce scrolling.</li>
-            <li>You can always go back via "Edit admin".</li>
+            <li>Na het starten worden de administratieve velden verborgen om scrollen te beperken.</li>
+            <li>Je kunt altijd terug via "Wijzig administratie".</li>
           </ul>
         </div>
       </div>
@@ -271,20 +271,20 @@
         <div class="topbar">
           <div style="display:flex; justify-content:space-between; gap:10px; align-items:flex-start;">
             <div>
-              <small><b>Assessor:</b> <span id="top_assessor"></span></small><br/>
-              <small><b>Driver:</b> <span id="top_driver"></span></small><br/>
+              <small><b>Beoordelaar:</b> <span id="top_assessor"></span></small><br/>
+              <small><b>Bestuurder:</b> <span id="top_driver"></span></small><br/>
               <small><b>Session:</b> <span id="top_session"></span></small>
             </div>
             <div style="text-align:right;">
-              <button id="unlock_session">Edit admin</button>
-              <button id="new_session" class="success">New session</button>
+              <button id="unlock_session">Wijzig administratie</button>
+              <button id="new_session" class="success">Nieuwe sessie</button>
             </div>
           </div>
         </div>
 
         <div class="grid grid-3">
           <div class="panel">
-            <div class="panel-title">Tap a zone</div>
+            <div class="panel-title">Tik een zone aan</div>
             <div id="zoneWrap">
               <canvas id="zoneCanvas"></canvas>
               <div id="busy" class="hidden"
@@ -294,36 +294,36 @@
                 Processing...
               </div>
             </div>
-            <small>Tap green/orange/red. Each tap is saved.</small>
+            <small>Tik groen/oranje/rood aan. Elke tik wordt opgeslagen.</small>
           </div>
 
           <div>
             <div class="panel">
-              <div class="panel-title">Choose driving task</div>
+              <div class="panel-title">Kies een rijtaak</div>
               <div id="tasks" class="tasks"></div>
             </div>
 
             <div class="panel">
-              <div class="panel-title">Choose encounter criterion</div>
+              <div class="panel-title">Kies een criterium</div>
               <div id="criteria" class="radio-list"></div>
             </div>
 
             <div class="panel">
-              <div class="panel-title">Your tools</div>
+              <div class="panel-title">Hulpmiddelen</div>
               <div class="tools-row">
-                <button id="undo" class="warn">Undo last</button>
+                <button id="undo" class="warn">Laatste ongedaan maken</button>
               </div>
               <div class="tools-row">
-                <button id="download_html">Download HTML report</button>
+                <button id="download_html">Download HTML-rapport</button>
               </div>
 
-              <label><input id="show_notes" type="checkbox"> Show notes</label>
-              <label style="margin-left:12px;"><input id="show_all_log" type="checkbox"> Show full log</label>
+              <label><input id="show_notes" type="checkbox"> Toon notities</label>
+              <label style="margin-left:12px;"><input id="show_all_log" type="checkbox"> Toon volledige log</label>
               <div id="notesWrap" class="hidden" style="margin-top:8px;">
-                <label>Notes (optional)<br/><input id="notes" type="text"></label>
+                <label>Notities (optioneel)<br/><input id="notes" type="text"></label>
               </div>
 
-              <div style="margin-top:8px;"><small>Saved on this device (browser storage).</small></div>
+              <div style="margin-top:8px;"><small>Opgeslagen op dit apparaat (browseropslag).</small></div>
               <div id="lastInfo2"></div>
               <div class="hr"></div>
               <div id="logWrap"></div>
@@ -457,14 +457,14 @@
     return `encounters::${aid}::${(a.session_id||"").trim()}`;
   }
 
-  function loadEncounters(a){
+  function loadOntmoetings(a){
     try {
       const raw = storeGet(storageKey(a));
       return raw ? JSON.parse(raw) : [];
     } catch { return []; }
   }
 
-  function saveEncounters(a, arr){
+  function saveOntmoetings(a, arr){
     storeSet(storageKey(a), JSON.stringify(arr));
   }
 
@@ -473,7 +473,7 @@
   let currentTaskId = parseInt(DEFAULT_TASK, 10) || 1;
 
 
-let currentCriterion = "1";
+let currentCriterium = "1";
 let encounters = []; // {datetime_utc, driving_task, zone_color, sector, x_norm, y_norm, notes}
 
   const tasksDiv = $("tasks");
@@ -517,9 +517,9 @@ let encounters = []; // {datetime_utc, driving_task, zone_color, sector, x_norm,
       inp.type = "radio";
       inp.name = "criterion";
       inp.value = String(id);
-      inp.checked = String(currentCriterion) === String(id);
+      inp.checked = String(currentCriterium) === String(id);
       inp.addEventListener("change", () => {
-        currentCriterion = id;
+        currentCriterium = id;
         saveState();
         renderLogTable();
       });
@@ -571,15 +571,15 @@ function renderLogTable() {
 
     const header = `
       <div class="muted" style="margin:6px 0 10px 0">
-        Showing ${showing} of ${total} encounters (you can still adjust them below).
+        Weergegeven: ${showing} van ${total} ontmoetingen (hieronder kun je ze nog aanpassen).
       </div>
       <table class="logTable">
         <thead>
           <tr>
             <th style="width:36px">#</th>
-            <th style="width:140px">Encounter</th>
-            <th>Driving task</th>
-            <th>Criterion</th>
+            <th style="width:140px">Ontmoeting</th>
+            <th>Rijtaak</th>
+            <th>Criterium</th>
             <th style="width:90px"></th>
           </tr>
         </thead>
@@ -623,7 +623,7 @@ function renderLogTable() {
       taskSel.addEventListener("change", () => {
         enc.task_id = taskSel.value;
         enc.driving_task = TASK_CHOICES[parseInt(taskSel.value, 10) - 1] || "";
-        saveEncounters(getAdmin(), encounters);
+        saveOntmoetings(getAdmin(), encounters);
         // keep UI radios in sync only if editing the last row (optional)
       });
       tdTask.appendChild(taskSel);
@@ -641,7 +641,7 @@ function renderLogTable() {
       critSel.addEventListener("change", () => {
         enc.criterion_id = critSel.value;
         enc.criterion = (CRITERIA[parseInt(critSel.value, 10) - 1]?.label) || "";
-        saveEncounters(getAdmin(), encounters);
+        saveOntmoetings(getAdmin(), encounters);
       });
       tdCrit.appendChild(critSel);
 
@@ -649,12 +649,12 @@ function renderLogTable() {
       const del = document.createElement("button");
       del.type = "button";
       del.className = "btn btn-sm";
-      del.textContent = "Delete";
+      del.textContent = "Verwijderen";
       del.addEventListener("click", () => {
         encounters.splice(idx, 1);
-        saveEncounters(getAdmin(), encounters);
+        saveOntmoetings(getAdmin(), encounters);
         renderLogTable();
-        setInfo(lastInfo2, `Deleted #${idx + 1}.`);
+        setInfo(lastInfo2, `Verwijderend #${idx + 1}.`);
       });
       tdDel.appendChild(del);
 
@@ -691,17 +691,17 @@ function renderLogTable() {
     setInfo(lastInfo1, "");
     const a = getAdmin();
     if (!a.assessor_first_name.trim() && !a.assessor_family_name.trim()) {
-      setInfo(lastInfo1, "Please enter at least the assessor name (first or family).");
+      setInfo(lastInfo1, "Vul ten minste de naam van de beoordelaar in (voor- of achternaam).");
       return;
     }
     if (!a.driver_first_name.trim() && !a.driver_family_name.trim()) {
-      setInfo(lastInfo1, "Please enter at least the driver name (first or family).");
+      setInfo(lastInfo1, "Vul ten minste de naam van de bestuurder in (voor- of achternaam).");
       return;
     }
     if (!a.session_id.trim()) $("session_id").value = newSessionId();
 
     // load existing
-    encounters = loadEncounters(getAdmin());
+    encounters = loadOntmoetings(getAdmin());
     sessionLocked = true;
     setTopbar();
     phase1.classList.add("hidden");
@@ -737,7 +737,7 @@ function renderLogTable() {
 
   canvas.addEventListener("click", (ev) => {
     if (!sessionLocked) {
-      setInfo(lastInfo2, "Start coding session first (administrative setup).");
+      setInfo(lastInfo2, "Start coderen first (administrative setup).");
       return;
     }
 
@@ -754,7 +754,7 @@ function renderLogTable() {
         const y = py / canvas.height;
 
         if (!(x>=0 && x<=1 && y>=0 && y<=1)) {
-          setInfo(lastInfo2, "Tap outside plot.");
+          setInfo(lastInfo2, "Tik buiten de afbeelding.");
           return;
         }
 
@@ -763,7 +763,7 @@ function renderLogTable() {
         const zc = nearestZone(rgb01);
 
         if (!zc) {
-          setInfo(lastInfo2, `Tap not in a zone (car/white/outside). x=${x.toFixed(3)} y=${y.toFixed(3)}`);
+          setInfo(lastInfo2, `Tik niet in een zone (auto/wit/buiten). x=${x.toFixed(3)} y=${y.toFixed(3)}`);
           return;
         }
 
@@ -774,8 +774,8 @@ const rec = {
           datetime_utc: utcNow(),
           task_id: String(currentTaskId),
           driving_task: TASK_CHOICES[(currentTaskId - 1)] || "",
-          criterion_id: String(currentCriterion),
-          criterion: (CRITERIA[(parseInt(String(currentCriterion), 10) - 1)]?.label) || "",
+          criterion_id: String(currentCriterium),
+          criterion: (CRITERIA[(parseInt(String(currentCriterium), 10) - 1)]?.label) || "",
           zone: zc,              // for log display
           zone_color: zc,        // backwards compatibility
           sector: sector8(x, y),
@@ -786,12 +786,12 @@ const rec = {
 
         encounters.push(rec);
         if (encounters.length > 2000) encounters = encounters.slice(-2000); // safety
-        saveEncounters(a, encounters);
+        saveOntmoetings(a, encounters);
 
         redraw();
         renderLogTable();
         setTopbar();
-        setInfo(lastInfo2, `Saved #${encounters.length}: ${rec.zone_color} (task ${rec.driving_task}, crit ${rec.criterion_id}).`);
+        setInfo(lastInfo2, `Opgeslagen #${encounters.length}: ${rec.zone_color} (task ${rec.driving_task}, crit ${rec.criterion_id}).`);
     } finally {
       busy.classList.add("hidden");
     }
@@ -801,11 +801,11 @@ const rec = {
     if (!sessionLocked) return;
     const a = getAdmin();
     if (encounters.length === 0) {
-      setInfo(lastInfo2, "Nothing to undo.");
+      setInfo(lastInfo2, "Niets om ongedaan te maken.");
       return;
     }
     encounters.pop();
-    saveEncounters(a, encounters);
+    saveOntmoetings(a, encounters);
     redraw();
     renderLogTable();
     setTopbar();
@@ -870,7 +870,7 @@ const rec = {
 <html><head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Encounter observation report</title>
+<title>Ontmoeting observation report</title>
 <style>
   body { margin: 12px; font-family: sans-serif; }
   h2 { margin: 14px 0 8px 0; }
@@ -890,10 +890,10 @@ const rec = {
 <td style="width: calc(100% - 170px);">
   <div class="box">
     <div style="font-size:0.95em; line-height:1.35;">
-      <b>Driver:</b> ${escapeHtml(a.driver_first_name)} ${escapeHtml(a.driver_family_name)}<br/>
-      <b>Assessor:</b> ${escapeHtml(a.assessor_first_name)} ${escapeHtml(a.assessor_family_name)}<br/>
-      <b>Session ID:</b> ${escapeHtml(a.session_id)}<br/>
-      <b>Report date:</b> ${escapeHtml(reportDate)}
+      <b>Bestuurder:</b> ${escapeHtml(a.driver_first_name)} ${escapeHtml(a.driver_family_name)}<br/>
+      <b>Beoordelaar:</b> ${escapeHtml(a.assessor_first_name)} ${escapeHtml(a.assessor_family_name)}<br/>
+      <b>Sessie-ID:</b> ${escapeHtml(a.session_id)}<br/>
+      <b>Rapportdatum:</b> ${escapeHtml(reportDate)}
     </div>
   </div>
 </td>
@@ -905,24 +905,24 @@ const rec = {
 </td>
 </tr></table>
 
-<h2>Encounters by driving task (counts)</h2>
+<h2>Ontmoetings by driving task (counts)</h2>
 <table class="report">
 <thead><tr>
-  <th>Driving task</th>
-  <th>Comfortable (green)</th>
-  <th>a bit uncomfortable (orange)</th>
-  <th>very uncomfortable (red)</th>
-  <th>Total</th>
+  <th>Rijtaak</th>
+  <th>Comfortabel (groen)</th>
+  <th>Een beetje oncomfortabel (oranje)</th>
+  <th>Erg oncomfortabel (rood)</th>
+  <th>Totaal</th>
 </tr></thead>
 <tbody>
-${tableRows || `<tr><td colspan="5">No encounters recorded.</td></tr>`}
+${tableRows || `<tr><td colspan="5">Geen ontmoetingen geregistreerd.</td></tr>`}
 </tbody></table>
 
-<h2 style="margin-top:18px;">Incidents at encounters (orange + red)</h2>
+<h2 style="margin-top:18px;">Incidenten bij ontmoetingen (oranje + rood)</h2>
 <table class="report">
-<thead><tr><th>datetime_utc</th><th>driving_task</th><th>criterion</th><th>zone</th></tr></thead>
+<thead><tr><th>Tijdstip (UTC)</th><th>Rijtaak</th><th>Criterium</th><th>Ontmoeting</th></tr></thead>
 <tbody>
-${exceptions || `<tr><td colspan="4">No orange/red encounters.</td></tr>`}
+${exceptions || `<tr><td colspan="4">Geen oranje/rode ontmoetingen.</td></tr>`}
 </tbody></table>
 
 </body></html>`;
@@ -931,7 +931,7 @@ ${exceptions || `<tr><td colspan="4">No orange/red encounters.</td></tr>`}
     const url = URL.createObjectURL(blob);
     const aTag = document.createElement("a");
     aTag.href = url;
-    aTag.download = `report_${safeSlug(assessorKey(a.assessor_first_name,a.assessor_family_name))}_${safeSlug(a.session_id)}.html`;
+    aTag.download = `rapport_${safeSlug(assessorKey(a.assessor_first_name,a.assessor_family_name))}_${safeSlug(a.session_id)}.html`;
     document.body.appendChild(aTag);
     aTag.click();
     aTag.remove();
