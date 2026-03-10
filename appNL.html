@@ -457,14 +457,14 @@
     return `encounters::${aid}::${(a.session_id||"").trim()}`;
   }
 
-  function loadOntmoetings(a){
+  function loadontmoetingen(a){
     try {
       const raw = storeGet(storageKey(a));
       return raw ? JSON.parse(raw) : [];
     } catch { return []; }
   }
 
-  function saveOntmoetings(a, arr){
+  function saveontmoetingen(a, arr){
     storeSet(storageKey(a), JSON.stringify(arr));
   }
 
@@ -623,7 +623,7 @@ function renderLogTable() {
       taskSel.addEventListener("change", () => {
         enc.task_id = taskSel.value;
         enc.driving_task = TASK_CHOICES[parseInt(taskSel.value, 10) - 1] || "";
-        saveOntmoetings(getAdmin(), encounters);
+        saveontmoetingen(getAdmin(), encounters);
         // keep UI radios in sync only if editing the last row (optional)
       });
       tdTask.appendChild(taskSel);
@@ -641,7 +641,7 @@ function renderLogTable() {
       critSel.addEventListener("change", () => {
         enc.criterion_id = critSel.value;
         enc.criterion = (CRITERIA[parseInt(critSel.value, 10) - 1]?.label) || "";
-        saveOntmoetings(getAdmin(), encounters);
+        saveontmoetingen(getAdmin(), encounters);
       });
       tdCrit.appendChild(critSel);
 
@@ -652,7 +652,7 @@ function renderLogTable() {
       del.textContent = "Verwijderen";
       del.addEventListener("click", () => {
         encounters.splice(idx, 1);
-        saveOntmoetings(getAdmin(), encounters);
+        saveontmoetingen(getAdmin(), encounters);
         renderLogTable();
         setInfo(lastInfo2, `Verwijderend #${idx + 1}.`);
       });
@@ -701,7 +701,7 @@ function renderLogTable() {
     if (!a.session_id.trim()) $("session_id").value = newSessionId();
 
     // load existing
-    encounters = loadOntmoetings(getAdmin());
+    encounters = loadontmoetingen(getAdmin());
     sessionLocked = true;
     setTopbar();
     phase1.classList.add("hidden");
@@ -786,7 +786,7 @@ const rec = {
 
         encounters.push(rec);
         if (encounters.length > 2000) encounters = encounters.slice(-2000); // safety
-        saveOntmoetings(a, encounters);
+        saveontmoetingen(a, encounters);
 
         redraw();
         renderLogTable();
@@ -805,7 +805,7 @@ const rec = {
       return;
     }
     encounters.pop();
-    saveOntmoetings(a, encounters);
+    saveontmoetingen(a, encounters);
     redraw();
     renderLogTable();
     setTopbar();
