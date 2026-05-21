@@ -13,6 +13,7 @@ font-family:Arial, sans-serif;
 }
 
 .langbar{
+display:none;
 position:fixed;
 top:0;
 left:0;
@@ -248,148 +249,87 @@ margin-top:48px;
   const root = document.getElementById("encounterApp");
   root.innerHTML = `
     <style>
-      #enc-wrap { font-family: sans-serif; margin: 12px 0; }
-      #enc-wrap h2 { margin: 0 0 10px 0; }
-      .panel { border:1px solid #ddd; border-radius:12px; padding:12px; background:#fff; margin-bottom:10px; }
-      .panel-title { font-weight:700; margin-bottom:10px; }
-      .topbar { border:1px solid #ddd; border-radius:12px; padding:10px 12px; margin-bottom:10px; background:#fff; }
-      .grid { display:grid; gap:10px; }
-      @media (min-width: 992px){ .grid-2{ grid-template-columns: 1fr 1fr; } }
-      @media (min-width: 992px){ .grid-3{ grid-template-columns: 420px 1fr; } }
-
-      #zoneWrap { border:1px solid #ddd; padding:6px; border-radius:12px; background:#fff; position:relative; }
-      canvas { width: 100%; max-width: 360px; height: auto; display:block; }
-      @media (min-width: 992px) { canvas { max-width: 520px; } }
-
-      .tasks { display:grid; grid-template-columns:1fr; row-gap:10px; }
-      @media (min-width: 992px) { .tasks { grid-template-columns:1fr 1fr; column-gap:22px; } }
-      label.task { display:block; line-height:1.25; font-size:0.98em; }
-
-      .tools-row button { margin-right: 8px; margin-bottom: 6px; }
-      pre.msgbox { white-space: pre-wrap; margin: 0; }
-
-      /* busy overlay: default is flex, hidden overrides */
-      #busy { display:flex; }
-      .hidden { display:none !important; }
-
-      input[type="text"]{ width:100%; box-sizing:border-box; padding:8px; }
-      button{ padding:8px 12px; cursor:pointer; }
-      button.primary{ background:#2f6fed; color:#fff; border:0; border-radius:8px; }
-      button.success{ background:#2e8b57; color:#fff; border:0; border-radius:8px; }
-      button.warn{ background:#f0ad4e; border:0; border-radius:8px; }
-
-/* ---- Encounter log table ---- */
-.tableWrap { overflow-x: auto; }
-.logTable { width: 100%; border-collapse: collapse; font-size: 13px; }
-.logTable th, .logTable td { border-top: 1px solid #eee; padding: 6px 8px; vertical-align: middle; }
-.logTable thead th { border-top: 0; color: #555; font-weight: 600; }
-.zonePill { display:inline-flex; align-items:center; gap:6px; }
-.zoneDot { width: 10px; height: 10px; border-radius: 50%; display:inline-block; }
-.zoneDot.red { background:#ff3b30; }
-.zoneDot.orange { background:#ff9500; }
-.zoneDot.green { background:#34c759; }
-.small { font-size: 12px; }
-.muted { color: #666; }
-.btnTiny { padding: 4px 8px; font-size: 12px; border-radius: 6px; }
-.selectTiny { width: 100%; padding: 4px 6px; font-size: 12px; }
-</style>
+      :root {
+        --bg:#f4f7fb; --card:#ffffff; --ink:#102033; --muted:#64748b; --line:#dbe4ef;
+        --brand:#2563eb; --brand2:#22c55e; --soft:#eef6ff; --shadow:0 18px 45px rgba(15, 23, 42, .10);
+        --green:#34c759; --orange:#ff9500; --red:#ff3b30;
+      }
+      body{ background: radial-gradient(circle at top left,#e8f3ff 0,#f7fafc 36%,#f4f7fb 100%); color:var(--ink); }
+      #enc-wrap { font-family: Inter, "Segoe UI", Arial, sans-serif; max-width:1440px; margin:0 auto; padding:24px; }
+      .hero { border:1px solid rgba(219,228,239,.9); border-radius:28px; padding:24px; margin-bottom:18px; background:linear-gradient(135deg,#ffffff 0%,#eef7ff 55%,#effdf5 100%); box-shadow:var(--shadow); display:flex; justify-content:space-between; gap:22px; align-items:center; }
+      .hero h1 { margin:0; font-size:clamp(26px,3vw,42px); letter-spacing:-.04em; }
+      .hero p { margin:8px 0 0; color:var(--muted); font-size:16px; }
+      .hero-right { display:flex; flex-direction:column; align-items:flex-end; gap:12px; }
+      .language-toggle { display:inline-flex; gap:4px; padding:4px; border-radius:999px; background:rgba(255,255,255,.82); border:1px solid #cbd5e1; box-shadow:0 4px 14px rgba(15,23,42,.06); }
+      .language-toggle a { text-decoration:none; color:#334155; font-weight:800; padding:7px 11px; border-radius:999px; }
+      .language-toggle a.active { background:#2563eb; color:#fff; box-shadow:0 5px 12px rgba(37,99,235,.20); }
+      .steps { display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; }
+      .step { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.72); border:1px solid rgba(37,99,235,.12); padding:8px 12px; border-radius:999px; font-weight:700; color:#334155; box-shadow:none; } .step:hover{ background:#fff; border-color:#93c5fd; transform:translateY(-1px); }
+      .step b { width:24px; height:24px; display:inline-grid; place-items:center; border-radius:999px; background:var(--brand); color:#fff; font-size:12px; }
+      .panel { border:1px solid var(--line); border-radius:24px; padding:20px; background:rgba(255,255,255,.92); box-shadow:0 10px 28px rgba(15,23,42,.07); margin-bottom:14px; }
+      .panel-title { font-weight:800; font-size:18px; margin-bottom:12px; letter-spacing:-.02em; }
+      .topbar { border:1px solid var(--line); border-radius:22px; padding:14px 16px; margin-bottom:14px; background:rgba(255,255,255,.95); box-shadow:0 10px 28px rgba(15,23,42,.06); }
+      .grid { display:grid; gap:16px; }
+      @media (min-width: 992px){ .grid-2{ grid-template-columns: 1.05fr .95fr; } .grid-3{ grid-template-columns:minmax(360px,560px) 1fr; align-items:start; } .map-panel{ position:sticky; top:64px; } }
+      label { font-weight:650; color:#1f2937; } input[type="text"]{ width:100%; box-sizing:border-box; padding:11px 12px; margin-top:5px; border:1px solid #cbd5e1; border-radius:12px; background:#fbfdff; font:inherit; }
+      input[type="text"]:focus{ outline:3px solid rgba(37,99,235,.16); border-color:var(--brand); background:#fff; }
+      hr { border:0; border-top:1px solid var(--line); margin:14px 0; }
+      button{ padding:10px 14px; cursor:pointer; border:1px solid #cbd5e1; border-radius:12px; background:#fff; font-weight:750; color:#1e293b; box-shadow:0 2px 8px rgba(15,23,42,.05); }
+      button:hover{ transform:translateY(-1px); box-shadow:0 8px 18px rgba(15,23,42,.10); }
+      button.primary{ background:linear-gradient(135deg,#2563eb,#1d4ed8); color:#fff; border:0; } button.success{ background:linear-gradient(135deg,#22c55e,#16a34a); color:#fff; border:0; } button.warn{ background:#fff7ed; color:#9a3412; border-color:#fed7aa; }
+      #zoneWrap { border:1px solid var(--line); padding:14px; border-radius:26px; background:linear-gradient(180deg,#ffffff,#f8fafc); position:relative; display:grid; place-items:center; }
+      canvas { width:100%; max-width:390px; height:auto; display:block; filter:drop-shadow(0 14px 18px rgba(15,23,42,.16)); } @media (min-width: 992px) { canvas { max-width:520px; } }
+      #busy { display:flex; } .hidden { display:none !important; }
+      .tasks { display:grid; grid-template-columns:1fr; row-gap:10px; } @media (min-width: 992px) { .tasks { grid-template-columns:1fr 1fr; column-gap:18px; } }
+      label.task, .radio-list label { display:block; line-height:1.3; padding:10px 12px; border:1px solid #e2e8f0; border-radius:14px; background:#fbfdff; font-size:.96em; }
+      label.task:hover, .radio-list label:hover { background:#f0f7ff; border-color:#bfdbfe; }
+      .tools-row { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px; } .tools-row button { margin:0; } pre.msgbox { white-space:pre-wrap; margin:10px 0 0; background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:12px; }
+      .legend { display:grid; gap:8px; margin-top:12px; } .legend span { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:13px; }
+      .tableWrap { overflow-x:auto; border:1px solid #e2e8f0; border-radius:16px; } .logTable { width:100%; border-collapse:collapse; font-size:13px; background:#fff; } .logTable th,.logTable td{ border-top:1px solid #eef2f7; padding:8px 10px; vertical-align:middle; } .logTable thead th{ border-top:0; color:#475569; font-weight:800; background:#f8fafc; }
+      .zonePill { display:inline-flex; align-items:center; gap:6px; } .zoneDot,.dot{ width:10px; height:10px; border-radius:50%; display:inline-block; } .zoneDot.red,.dot.red{ background:var(--red); } .zoneDot.orange,.dot.orange{ background:var(--orange); } .zoneDot.green,.dot.green{ background:var(--green); }
+      .small{ font-size:12px; } .muted{ color:var(--muted); } .btnTiny{ padding:5px 9px; font-size:12px; border-radius:9px; } .selectTiny{ width:100%; padding:5px 7px; font-size:12px; border-radius:9px; border:1px solid #cbd5e1; }
+      .hr{ height:1px; background:#e2e8f0; margin:12px 0; }
+      .wizard-page{ display:none; } .wizard-page.active{ display:block; } .step.active{ background:#fff; border-color:#2563eb; box-shadow:0 8px 18px rgba(37,99,235,.16); } .step.active b{ background:#16a34a; }
+      .wizard-actions{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; margin-top:14px; }
+    </style>
 
     <div id="enc-wrap">
-      <h2>Encounter coding (green / orange / red)</h2>
-
-      <div id="phase1" class="grid grid-2">
-        <div class="panel">
-          <div class="panel-title">Administrative setup</div>
-          <p style="margin:0 0 10px 0;">Fill in the administrative details first. Then tap <b>Start coding session</b>.</p>
-
-          <label>Assessor - first name<br/><input id="assessor_first_name" type="text"></label><br/>
-          <label>Assessor - family name<br/><input id="assessor_family_name" type="text"></label>
-          <hr/>
-          <label>Driver - first name<br/><input id="driver_first_name" type="text"></label><br/>
-          <label>Driver - family name<br/><input id="driver_family_name" type="text"></label>
-          <hr/>
-          <label>Session ID<br/><input id="session_id" type="text"></label><br/>
-
-          <button id="lock_session" class="primary">Start coding session</button>
-          <div style="margin-top:10px;"><small>Saved on this device (browser storage).</small></div>
-          <div id="lastInfo1"></div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-title">Quick check</div>
-          <ul style="margin:0;">
-            <li>After starting, admin fields are hidden to reduce scrolling.</li>
-            <li>You can always go back via "Edit admin".</li>
-          </ul>
+      <section class="hero"><div><h1>Encounter coding</h1><p>Green / orange / red coding for in-car encounters</p></div><div class="hero-right"><div class="language-toggle" aria-label="Language"><a class="active" href="appEngl.html" data-lang-switch="en">EN</a><a href="appNL.html" data-lang-switch="nl">NL</a></div><div class="steps"><button type="button" class="step active" data-step="setup"><b>1</b>Setup</button><button type="button" class="step" data-step="code"><b>2</b>Code & Review</button><button type="button" class="step" data-step="export"><b>3</b>Export</button></div></div></section>
+      <div id="phase1" class="wizard-page active">
+        <div class="grid grid-2">
+          <div class="panel"><div class="panel-title">Administrative setup</div><p class="muted" style="margin:0 0 14px 0;">Fill in the administrative details first. Then start the coding session.</p>
+            <label>Assessor - first name<br/><input id="assessor_first_name" type="text"></label><br/><br/><label>Assessor - family name<br/><input id="assessor_family_name" type="text"></label><hr/>
+            <label>Driver - first name<br/><input id="driver_first_name" type="text"></label><br/><br/><label>Driver - family name<br/><input id="driver_family_name" type="text"></label><hr/>
+            <label>Session ID<br/><input id="session_id" type="text"></label><br/><br/><button id="lock_session" class="primary">Start coding session</button><div style="margin-top:10px;"><small class="muted">Saved on this device (browser storage).</small></div><div id="lastInfo1"></div></div>
+          <div class="panel"><div class="panel-title">Start screen</div><img src="zones.png" alt="Green orange red encounter zones" style="width:100%; max-width:380px; display:block; margin:0 auto 14px auto; border-radius:24px; filter:drop-shadow(0 14px 18px rgba(15,23,42,.16));"><ul class="muted" style="margin:0; line-height:1.65;"><li>Step 2 combines coding and review in one workspace.</li><li>The colour map stays visible while you adjust earlier encounters.</li><li>Step 3 is only for notes and export.</li></ul></div>
         </div>
       </div>
-
-      <div id="phase2" class="hidden">
-        <div class="topbar">
-          <div style="display:flex; justify-content:space-between; gap:10px; align-items:flex-start;">
-            <div>
-              <small><b>Assessor:</b> <span id="top_assessor"></span></small><br/>
-              <small><b>Driver:</b> <span id="top_driver"></span></small><br/>
-              <small><b>Session:</b> <span id="top_session"></span></small>
-            </div>
-            <div style="text-align:right;">
-              <button id="unlock_session">Edit admin</button>
-              <button id="new_session" class="success">New session</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid grid-3">
-          <div class="panel">
-            <div class="panel-title">Tap a zone</div>
-            <div id="zoneWrap">
-              <canvas id="zoneCanvas"></canvas>
-              <div id="busy" class="hidden"
-                style="position:absolute; left:0; top:0; right:0; bottom:0;
-                       background:rgba(255,255,255,0.45); font-size:16px; font-weight:600;
-                       align-items:center; justify-content:center;">
-                Processing...
-              </div>
-            </div>
-            <small>Tap green/orange/red. Each tap is saved.</small>
-          </div>
-
-          <div>
-            <div class="panel">
-              <div class="panel-title">Choose driving task</div>
-              <div id="tasks" class="tasks"></div>
-            </div>
-
-            <div class="panel">
-              <div class="panel-title">Choose encounter criterion</div>
-              <div id="criteria" class="radio-list"></div>
-            </div>
-
-            <div class="panel">
-              <div class="panel-title">Your tools</div>
-              <div class="tools-row">
-                <button id="undo" class="warn">Undo last</button>
-              </div>
-              <div class="tools-row">
-                <button id="download_html">Download HTML report</button>
-              </div>
-
-              <label><input id="show_notes" type="checkbox"> Show notes</label>
-              <label style="margin-left:12px;"><input id="show_all_log" type="checkbox"> Show full log</label>
-              <div id="notesWrap" class="hidden" style="margin-top:8px;">
-                <label>Notes (optional)<br/><input id="notes" type="text"></label>
-              </div>
-
-              <div style="margin-top:8px;"><small>Saved on this device (browser storage).</small></div>
-              <div id="lastInfo2"></div>
-              <div class="hr"></div>
-              <div id="logWrap"></div>
-</div>
-          </div>
+      <div id="phase2" class="wizard-page">
+        <div class="topbar"><div><small><b>Assessor:</b> <span id="top_assessor"></span></small><br/><small><b>Driver:</b> <span id="top_driver"></span></small><br/><small><b>Session:</b> <span id="top_session"></span></small></div></div>
+        <div class="grid grid-3"><div class="panel map-panel"><div class="panel-title">Tap a zone</div><div id="zoneWrap"><canvas id="zoneCanvas"></canvas><div id="busy" class="hidden" style="position:absolute; inset:0; background:rgba(255,255,255,.55); font-size:16px; font-weight:800; align-items:center; justify-content:center; border-radius:26px;">Processing...</div></div><small class="muted">Tap green, orange, or red. Each tap is saved immediately.</small><div class="legend"><span><i class="zoneDot green"></i>Comfortable</span><span><i class="zoneDot orange"></i>A bit uncomfortable</span><span><i class="zoneDot red"></i>Very uncomfortable</span></div></div>
+          <div><div class="panel"><div class="panel-title">Choose driving task</div><div id="tasks" class="tasks"></div></div><div class="panel"><div class="panel-title">Choose encounter criterion</div><div id="criteria" class="radio-list"></div></div><div class="panel"><div class="panel-title">Coding & review tools</div><div class="tools-row"><button id="undo" class="warn">Undo last</button><button type="button" class="primary" data-step="export">Continue to export</button></div><div id="lastInfo2"></div></div><div class="panel"><div class="panel-title">Live review of coded encounters</div><p class="muted">Check, adjust, or delete coded encounters while the colour map remains visible.</p><label><input id="show_all_log" type="checkbox" checked> Show full log</label><div class="hr"></div><div id="logWrap"></div></div></div>
         </div>
       </div>
+      <div id="exportPage" class="wizard-page"><div class="panel" id="exportPanel"><div class="panel-title">Export session</div><p class="muted">Add optional notes and download the HTML report.</p><label><input id="show_notes" type="checkbox"> Show notes</label><div id="notesWrap" class="hidden" style="margin-top:10px;"><label>Notes (optional)<br/><input id="notes" type="text"></label></div><div class="hr"></div><div class="tools-row"><button id="download_html" class="primary">Download HTML report</button></div><small class="muted">Saved on this device (browser storage).</small><div class="wizard-actions"><button type="button" data-step="code">Back to code & review</button></div></div></div>
     </div>
   `;
+
+  function goStep(step) {
+    if (step === "review") step = "code";
+    const pages = { setup: $("phase1"), code: $("phase2"), export: $("exportPage") };
+    if ((step === "code" || step === "export") && !sessionLocked) {
+      $("lock_session")?.click();
+      if (!sessionLocked) step = "setup";
+    }
+    Object.entries(pages).forEach(([key, el]) => el?.classList.toggle("active", key === step));
+    document.querySelectorAll(".step[data-step]").forEach(btn => btn.classList.toggle("active", btn.dataset.step === step));
+    if (step === "code") { redraw(); renderLogTable(); }
+    saveState();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  document.querySelectorAll("[data-step]").forEach((btn) => {
+    btn.addEventListener("click", () => goStep(btn.dataset.step));
+  });
 
   // === 3) helpers ===
     // Storage helper: localStorage can be blocked in some embedded/iframe contexts (or strict privacy settings).
@@ -398,8 +338,8 @@ margin-top:48px;
     function storageOk() {
       try {
         const k = "__enc_test__";
-        window.storeSet(k, "1");
-        window.storeRemove(k);
+        window.localStorage.setItem(k, "1");
+        window.localStorage.removeItem(k);
         return true;
       } catch (e) {
         return false;
@@ -408,14 +348,14 @@ margin-top:48px;
     const __storageOk = storageOk();
     function storeGet(key) {
       try {
-        return __storageOk ? window.storeGet(key) : (__memStore[key] ?? null);
+        return __storageOk ? window.localStorage.getItem(key) : (__memStore[key] ?? null);
       } catch (e) {
         return (__memStore[key] ?? null);
       }
     }
     function storeSet(key, value) {
       try {
-        if (__storageOk) window.storeSet(key, value);
+        if (__storageOk) window.localStorage.setItem(key, value);
         else __memStore[key] = value;
       } catch (e) {
         __memStore[key] = value;
@@ -423,7 +363,7 @@ margin-top:48px;
     }
     function storeRemove(key) {
       try {
-        if (__storageOk) window.storeRemove(key);
+        if (__storageOk) window.localStorage.removeItem(key);
         else delete __memStore[key];
       } catch (e) {
         delete __memStore[key];
@@ -507,6 +447,47 @@ margin-top:48px;
     $("top_driver").textContent = `${a.driver_first_name.trim()} ${a.driver_family_name.trim()}`.trim();
     $("top_session").textContent = (a.session_id || "").trim();
   }
+
+  function currentWizardStep(){
+    const active = document.querySelector(".wizard-page.active");
+    if (!active) return "setup";
+    if (active.id === "phase2") return "code";
+    if (active.id === "exportPage") return "export";
+    return "setup";
+  }
+
+  function saveState(){
+    try {
+      localStorage.setItem("encounterApp::admin", JSON.stringify(getAdmin()));
+      localStorage.setItem("encounterApp::step", currentWizardStep());
+      localStorage.setItem("encounterApp::criterion", String(currentCriterion));
+      localStorage.setItem("encounterApp::task", String(currentTaskId));
+    } catch(e) {}
+  }
+
+  function restoreState(){
+    try {
+      const raw = localStorage.getItem("encounterApp::admin");
+      if (raw) {
+        const a = JSON.parse(raw);
+        ["assessor_first_name","assessor_family_name","driver_first_name","driver_family_name","session_id"].forEach(id => { if (a[id] !== undefined && $(id)) $(id).value = a[id]; });
+      }
+      const c = localStorage.getItem("encounterApp::criterion");
+      if (c) currentCriterion = c;
+      const t = parseInt(localStorage.getItem("encounterApp::task") || "", 10);
+      if (Number.isFinite(t)) currentTaskId = t;
+    } catch(e) {}
+  }
+
+  document.querySelectorAll("[data-lang-switch]").forEach(a => {
+    a.addEventListener("click", () => saveState());
+  });
+
+  ["assessor_first_name","assessor_family_name","driver_first_name","driver_family_name","session_id"].forEach(id => {
+    $(id)?.addEventListener("input", saveState);
+  });
+
+  restoreState();
 
   // === 4) storage (local) ===
   function storageKey(a){
@@ -734,6 +715,18 @@ function renderLogTable() {
   };
 
   // notes toggle
+
+  try {
+    const desiredStep = localStorage.getItem("encounterApp::step");
+    if (desiredStep === "code" || desiredStep === "export") {
+      const a = getAdmin();
+      if ((a.assessor_first_name.trim() || a.assessor_family_name.trim()) && (a.driver_first_name.trim() || a.driver_family_name.trim())) {
+        $("lock_session")?.click();
+        if (desiredStep === "export") goStep("export");
+      }
+    }
+  } catch(e) {}
+
   $("show_notes").addEventListener("change", () => {
     $("notesWrap").classList.toggle("hidden", !$("show_notes").checked);
   });
@@ -761,20 +754,19 @@ function renderLogTable() {
     encounters = loadEncounters(getAdmin());
     sessionLocked = true;
     setTopbar();
-    phase1.classList.add("hidden");
-    phase2.classList.remove("hidden");
+    saveState();
+    goStep("code");
     redraw();
     renderLogTable();
   });
 
-  $("unlock_session").addEventListener("click", () => {
+  $("unlock_session")?.addEventListener("click", () => {
     setInfo(lastInfo2, "");
     sessionLocked = false;
-    phase2.classList.add("hidden");
-    phase1.classList.remove("hidden");
+    goStep("setup");
   });
 
-  $("new_session").addEventListener("click", () => {
+  $("new_session")?.addEventListener("click", () => {
     setInfo(lastInfo2, "");
     encounters = [];
     redraw();
@@ -788,8 +780,7 @@ function renderLogTable() {
     currentTaskId = parseInt(DEFAULT_TASK, 10) || 1;
     renderTasks();
     sessionLocked = false;
-    phase2.classList.add("hidden");
-    phase1.classList.remove("hidden");
+    goStep("setup");
   });
 
   canvas.addEventListener("click", (ev) => {
